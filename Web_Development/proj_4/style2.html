@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello!</title>
+    <style>
+        h1{
+            color: blue;
+        }
+        .baz{
+            color: yellow;
+        }
+        #foo{
+            color: brown;
+        }
+    </style>
+</head>
+<body>
+    <div style="font-size: 20px;text-align: center;font-weight: bold;">
+        Describing Specificity Order Of CSS Selectors 
+    </div>
+
+    <div>
+        <h1 class="baz" id="foo" style="color: black;">Heading 1 This is "INLINE" Specificity</h1>
+        <h1 class="baz" id="foo">Heading 2 This is "ID" Specificity</h1>
+        <h1 class="baz">Heading 3 This is "CLASS" Specificity</h1>
+        <h1>Heading 4 This is "TYPE" Specificity</h1>
+    </div>
+    
+</body>
+</html>

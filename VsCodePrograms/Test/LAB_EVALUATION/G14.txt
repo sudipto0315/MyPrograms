@@ -1,0 +1,4 @@
+write a program in C to find all possible triplets(x,y,z) in an array a of
+integers such that x-y/z holds for an integer k, such that I[x]≠I[y]≠I[z],
+where I[(.)] indicates the index of (.) in a. The integer k and the array a
+are user inputs.

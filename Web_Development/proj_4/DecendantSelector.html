@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Using Selectors</title>
+        <style>
+            ul li {
+                color: blue;
+            }
+            /* ul>li {
+                color: blue;
+            } */
+        </style>
+    </head>
+    <body>
+        <div>
+            this is Selecting all Decendant Elements
+        </div>
+        <ol>
+            <li>foo</li>
+            <li> bar
+                <ul>
+                    <li>hello</li>
+                    <ol>
+                        <li>goodbye</li>
+                    </ol>
+                    <li>hello</li>
+                </ul>
+            </li>
+            <li>baz</li>
+        </ol>
+
+    </body>
+</html>

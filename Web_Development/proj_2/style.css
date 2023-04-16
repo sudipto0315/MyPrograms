@@ -1,0 +1,24 @@
+div{
+    background-color: rgb(255, 225, 0);
+    color: aquamarine;
+    font-weight: bold;
+    text-align: center;
+    /* background-image: url("IMG_20220830_194054.jpg"); */
+    width: 400px;
+    border: 10px solid;
+}
+#box2{
+    background-color: rgb(255, 0, 0);
+    color: rgb(23, 74, 193);
+    font-weight: bold;
+    text-align: center;
+    width: 1200px;
+    margin: 30px;
+    padding: 40px;
+}
+li{
+    display: inline-block;
+}
+ul{
+    text-align: center;
+}
