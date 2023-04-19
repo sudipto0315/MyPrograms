@@ -9,6 +9,8 @@
         "sstream": "cpp",
         "functional": "cpp",
         "regex": "cpp",
-        "typeinfo": "cpp"
+        "typeinfo": "cpp",
+        "stdlib.h": "c",
+        "stdio.h": "c"
     }
 }
