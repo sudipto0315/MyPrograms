@@ -15,7 +15,7 @@ int main() {
 
     // Find largest element
     largest = arr[0];
-    for (i = 1; i < n; i++) {
+    for (i = 0; i < n; i++) {
         if (largest < arr[i]) {
             largest = arr[i];
         }
@@ -23,13 +23,14 @@ int main() {
 
     // Find second largest element
     secLargest = arr[0];
-    for (i = 4; i < n; i++) {
+    for (i = 0; i < n; i++) {
         if (arr[i] != largest && secLargest < arr[i]) {
             secLargest = arr[i];
         }
     }
 
     // Print result
+    printf("The largest element in the array is: %d\n",largest);
     printf("The second largest element in the array is: %d\n", secLargest);
 
     return 0;
