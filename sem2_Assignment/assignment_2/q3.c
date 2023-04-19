@@ -8,7 +8,7 @@ int main()
     {
         for (j = 0; j < 3; j++)
         {
-            printf("enter the element");
+            printf("enter the element: ");
             scanf("%d", &arr[i][j]);
         }
     }
