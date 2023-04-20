@@ -8,7 +8,7 @@ v. Calculate the length of a string without using the strlen function. The strin
 vi. Calculate the length of a string using the strlen function. The string is user input.
 vii. Copy one string to another string without using the strcpy function. The string is user input.
 viii. Copy one string to another string using the strcpy function. The string is user input.
-ix. A menu “exit” to terminate the program.
+ix. A menu "exit" to terminate the program.
 */
 #include <stdio.h>
 #include <string.h>
