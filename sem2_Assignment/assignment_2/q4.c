@@ -13,14 +13,12 @@ int main() {
         }
     }
 
-    // Find transpose of matrix
     for (int i = 0; i < order; i++) {
         for (int j = 0; j < order; j++) {
             transpose[i][j] = arr[j][i];
         }
     }
 
-    // Print original matrix
     printf("The original matrix is:\n");
     for (int i = 0; i < order; i++) {
         for (int j = 0; j < order; j++) {
@@ -29,7 +27,6 @@ int main() {
         printf("\n");
     }
 
-    // Print transpose of matrix
     printf("The transpose of the matrix is:\n");
     for (int i = 0; i < order; i++) {
         for (int j = 0; j < order; j++) {
