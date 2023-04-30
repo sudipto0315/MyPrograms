@@ -20,7 +20,7 @@ int main() {
             secLargest=largest;
             largest=arr[i];
         }
-        else if (arr[i]>secLargest)
+        else if (arr[i]>secLargest && arr[i]!=largest)
         {
             secLargest=arr[i];
         }
