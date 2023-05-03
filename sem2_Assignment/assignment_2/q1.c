@@ -9,13 +9,26 @@ void swap(int* a, int* b) {
 void rearrange(int arr[], int n) {
     int left = 0, right = n-1;
     while (left < right) {
-        while (arr[left] % 2 == 0 && left < right) {
+        // while (arr[left] % 2 == 0 && left < right) {
+        //     left++;
+        // }
+        // while (arr[right] % 2 == 1 && left < right) {
+        //     right--;
+        // }
+        // if (left < right) {
+        //     swap(&arr[left], &arr[right]);
+        //     left++;
+        //     right--;
+        // }
+        
+        if(arr[left] % 2 == 0) {
             left++;
         }
-        while (arr[right] % 2 == 1 && left < right) {
+        else if(arr[right] % 2 == 1){
             right--;
         }
-        if (left < right) {
+        else if(left < right)
+        {
             swap(&arr[left], &arr[right]);
             left++;
             right--;
