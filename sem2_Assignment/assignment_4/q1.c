@@ -1,91 +1,111 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define a node structure for the doubly linked list
-struct Node {
+typedef struct Node_t Node_t;
+typedef struct Node_t *Node;
+
+struct Node_t
+{
     int data;
-    struct Node* prev;
-    struct Node* next;
+    Node next;
+    Node prev;
 };
 
-// Function to create a new node
-struct Node* newNode(int data) {
-    struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+Node newNode(int data, Node next, Node prev)
+{
+    Node node = (Node)malloc(sizeof(Node_t));
     node->data = data;
-    node->prev = NULL;
-    node->next = NULL;
+    node->next = next;
+    node->prev = prev;
+
     return node;
 }
 
-// Function to insert a node at the end of the list
-void insertEnd(struct Node** head, struct Node** tail, struct Node* node) {
-    if (*head == NULL) {
-        *head = node;
-        *tail = node;
-    } else {
-        (*tail)->next = node;
-        node->prev = *tail;
-        *tail = node;
+void insertAtStart(Node *pnode, int data)
+{
+    Node new_node = newNode(data, *pnode, NULL);
+    if (*pnode != NULL)
+    {
+        (*pnode)->prev = new_node;
     }
+    *pnode = new_node;
 }
 
-// Function to merge two sorted doubly linked lists
-struct Node* mergeLists(struct Node* head1, struct Node* head2) {
-    struct Node* mergedHead = NULL;
-    struct Node* mergedTail = NULL;
-
-    while (head1 != NULL && head2 != NULL) {
-        if (head1->data < head2->data) {
-            insertEnd(&mergedHead, &mergedTail, newNode(head1->data));
-            head1 = head1->next;
-        } else {
-            insertEnd(&mergedHead, &mergedTail, newNode(head2->data));
-            head2 = head2->next;
-        }
+void insertAtLast(Node *pnode, int data)
+{
+    if (*pnode == NULL)
+    {
+        insertAtStart(pnode, data);
     }
 
-    while (head1 != NULL) {
-        insertEnd(&mergedHead, &mergedTail, newNode(head1->data));
-        head1 = head1->next;
+    Node node = *pnode;
+    while (node->next)
+    {
+        node = node->next;
     }
 
-    while (head2 != NULL) {
-        insertEnd(&mergedHead, &mergedTail, newNode(head2->data));
-        head2 = head2->next;
-    }
-
-    return mergedHead;
+    node->next = newNode(data, NULL, node);
+    ;
 }
 
-// Function to print the doubly linked list
-void printList(struct Node* head) {
-    while (head != NULL) {
-        printf("%d ", head->data);
-        head = head->next;
+void insertAtIndex(Node *pnode, int data, int index)
+{
+    if (index == 0)
+    {
+        insertAtStart(pnode, data);
+        return;
+    }
+    Node node = *pnode;
+    index--;
+    while (index > 0 && node != NULL)
+    {
+        node = node->next;
+        index--;
+    }
+    if (node == NULL)
+    {
+        return;
+    }
+
+    if (node->next == NULL)
+    {
+        insertAtLast(pnode, data);
+        return;
+    }
+    Node new_node = newNode(data, node->next, node);
+    node->next->prev = new_node;
+    node->next = new_node;
+}
+
+void display(Node node)
+{
+    Node end;
+    printf("\nIn Forward Direction \n");
+    while (node != NULL)
+    {
+        printf(" %d ", node->data);
+        end = node;
+        node = node->next;
+    }
+
+    printf("\nIn Backward Direction \n");
+    while (end != NULL)
+    {
+        printf(" %d ", end->data);
+        end = end->prev;
     }
     printf("\n");
 }
 
-// Main function to test the program
-int main() {
-    // Create two sorted doubly linked lists
-    struct Node* head1 = newNode(1);
-    head1->next = newNode(3);
-    head1->next->prev = head1;
-    head1->next->next = newNode(5);
-    head1->next->next->prev = head1->next;
-
-    struct Node* head2 = newNode(2);
-    head2->next = newNode(4);
-    head2->next->prev = head2;
-    head2->next->next = newNode(6);
-    head2->next->next->prev = head2->next;
-
-    // Merge the two lists
-    struct Node* mergedHead = mergeLists(head1, head2);
-
-    // Print the merged list
-    printList(mergedHead);
-
+int main()
+{
+    Node head = NULL;
+    insertAtStart(&head, 1);
+    insertAtStart(&head, 2);
+    insertAtStart(&head, 3);
+    insertAtLast(&head, 50);
+    display(head);
+    insertAtIndex(&head, 70, 3);
+    display(head);
     return 0;
 }
