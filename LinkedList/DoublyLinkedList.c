@@ -45,15 +45,14 @@ void insertAtLast(Node *pnode, int data)
     }
 
     node->next = newNode(data, NULL, node);
-    ;
 }
 
-void insertAtIndex(Node *pnode, int data, int index)
+int insertAtIndex(Node *pnode, int data, int index)
 {
     if (index == 0)
     {
         insertAtStart(pnode, data);
-        return;
+        return -1;
     }
     Node node = *pnode;
     index--;
@@ -64,24 +63,24 @@ void insertAtIndex(Node *pnode, int data, int index)
     }
     if (node == NULL)
     {
-        return;
+        return -1;
     }
 
     if (node->next == NULL)
     {
         insertAtLast(pnode, data);
-        return;
+        return -1;
     }
     Node new_node = newNode(data, node->next, node);
     node->next->prev = new_node;
     node->next = new_node;
 }
 
-void removeFirst(Node *pnode)
+int removeFirst(Node *pnode)
 {
     if(*pnode==NULL)
     {
-        return ;
+        return -1;
     }
 
     Node node =  *pnode;
@@ -89,21 +88,22 @@ void removeFirst(Node *pnode)
     {
         *pnode=NULL;
         free(node);
-        return ;
+        return -1;
     }
 
     node->next->prev=NULL;
     *pnode = node->next;
+    return(node->data);
     free(node);
 }
 
-void removeLast(Node *pnode)
+int removeLast(Node *pnode)
 {
     Node node = *pnode;
     if(node == NULL || node->next==NULL)
     {
         removeFirst(pnode);
-        return ;
+        return -1;
     }
 
     while(node->next->next)
@@ -113,17 +113,16 @@ void removeLast(Node *pnode)
 
     Node temp = node->next;
     node->next = NULL;
+    return(temp->data);
     free(temp);
-
-
 }
 
-void removeIndex(Node *pnode,int index)
+int removeIndex(Node *pnode,int index)
 {
     if(index==0)
     {
         removeFirst(pnode);
-        return ;
+        return -1;
     }
 
     Node node = *pnode;
@@ -137,20 +136,20 @@ void removeIndex(Node *pnode,int index)
 
     if(node==NULL || node->next==NULL)
     {
-        return ;
+        return -1;
     }
 
     if(node->next->next==NULL)
     {
         removeLast(pnode);
-        return ;
+        return -1;
     }
 
     Node temp = node->next;
     temp->next->prev = node;
     node->next = temp->next;
+    return(temp->data);
     free(temp);
-
 }
 
 void display(Node node)
@@ -176,14 +175,92 @@ void display(Node node)
 int main()
 {
     Node head = NULL;
-    insertAtStart(&head, 1);
-    insertAtStart(&head, 2);
-    insertAtStart(&head, 3);
-    insertAtLast(&head, 50);
-    display(head);
-    insertAtIndex(&head, 70, 3);
-    display(head);
-    removeIndex(&head,2);
-    display(head);
+    int data,index,deletedElement;
+    int n=0 , list_Len=0;;
+    // insertAtStart(&head, 1);
+    // insertAtStart(&head, 2);
+    // insertAtStart(&head, 3);
+    // insertAtLast(&head, 50);
+    // display(head);
+    // insertAtIndex(&head, 70, 3);
+    // display(head);
+    // removeIndex(&head,2);
+    // display(head);
+    printf("\t*** Welcome to Doubly Linked List Menu Based Program *** \n");
+    printf("Enter the length of the Doubly linked list: ");
+    scanf("%d",&list_Len);
+    printf("Enter the elements:\n");
+    for (int i = 1; i <= list_Len; i++)
+    {   
+        printf("Enter element %d : ",i);
+        scanf("%d", &data);
+        insertAtStart(&head, data);
+    }
+    printf("\n");
+    printf("\t*** Following Are The Operations You Can Perform On The Linked List *** \n"
+        "Press 1: To add Number in the begining of the list.\n"
+        "Press 2: To add Number at the nth position of the list.\n"
+        "Press 3: To add Number at the last of the list.\n"
+        "Press 4: To remove Number in the begining of the list.\n"
+        "Press 5: To remove Number at the nth position of the list.\n"
+        "Press 6: To remove Number at the last of the list.\n"
+        "Press 8: To print the list.\n"
+        "Press 0: To exit from the Program.\n\n");
+while(1){
+    printf("Please Enter Your Choice:");
+    scanf("%d",&n);
+    if (n==0){
+        printf("\tThank You\n");
+        printf("\tHave a nice day\n");
+        exit(0);
+        }
+    else if (n==1)
+    {
+    printf("Please Enter the Number which you want to add in the begining:");
+    scanf("%d",&data);
+     insertAtStart(&head,data);     
+    }
+    else if (n==2)
+    {
+    printf("Please Enter the position at which you want to add a number:");
+    scanf("%d",&index);
+    printf("Please Enter the Number which you want to add at the %d position of the list:",index);
+    scanf("%d",&data);
+     insertAtIndex(&head,data,index);     
+    }
+    else if (n==3)
+    {
+    printf("Please Enter the Number which you want to add at the last:");
+    scanf("%d",&data);
+     insertAtLast(&head,data);     
+    }
+    else if (n==4)
+    {
+     deletedElement=removeFirst(&head);     
+    printf("The removed value is: %d\n",deletedElement);
+    }
+    else if (n==5)
+    {
+     deletedElement=removeLast(&head);     
+    printf("The removed value is: %d\n",deletedElement);
+    }
+    else if (n==6)
+    {
+    printf("Please Enter the position at which you want to remove a number:");
+    scanf("%d",&index);
+     deletedElement=removeIndex(&head,index);     
+    printf("The removed value is: %d\n",deletedElement);
+    }
+    else if (n==8)
+    {
+        display(head);
+    }
+    else
+    {
+        printf("You Have Entered a Wrong choice!!!\n"
+                "Please Try Again.");
+    }
+    getchar();
+    }
     return 0;
 }
