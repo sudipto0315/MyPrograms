@@ -21,7 +21,7 @@ void addFirst(Node *pnode, int data) {
     *pnode = newNode(data, *pnode);
 }
 
-void addNum(Node first, Node second, Node list3)
+void addNum(Node first, Node second, Node* list3)
 {
     int sum = 0;
     int newVal1 =0;
@@ -33,7 +33,7 @@ void addNum(Node first, Node second, Node list3)
         if (second)
             newVal2 = second->data;
         sum = newVal1+newVal2;
-        addFirst(&list3,sum);
+        addFirst(list3,sum);
         if (first)
             first = first->next;
         if (second)
@@ -83,7 +83,7 @@ int main()
     printf("The 1st Linked List is : "); printList(list1);
     printf("The 2nd Linked List is : "); printList(list2);
 
-    addNum(list1, list2, list3);
+    addNum(list1, list2, &list3);
     printf("The Added Linked List is : "); printList(list3);
 
     return 0;
