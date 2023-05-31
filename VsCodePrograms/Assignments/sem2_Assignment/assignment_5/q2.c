@@ -7,7 +7,6 @@ int top, stack[max];
 void push(char x)
 {
 
-    // Push(Inserting Element in stack) operation
     if (top == max - 1)
     {
         printf("stack overflow");
@@ -20,14 +19,12 @@ void push(char x)
 
 void pop()
 {
-    // Pop (Removing element from stack)
     printf("%c", stack[top--]);
 }
 
 int main()
 {
     char str[100];
-    //    char str[]="sri lanka";
     printf("Enter a string: ");
     fgets(str,100,stdin);
     int len = strlen(str);
