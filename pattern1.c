@@ -10,7 +10,7 @@ int isPrimeNumber(int num)
             break;
         }
     }
-    if (isPrime == 1 || num == 2)
+    if (isPrime == 1)
         return 1;
     else
         return 0;
