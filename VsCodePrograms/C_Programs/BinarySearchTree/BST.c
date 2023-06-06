@@ -2,61 +2,123 @@
 #include <stdlib.h>
 
 struct node {
-    int data;
-    struct node *left, *right;
+	int key;
+	struct node *left, *right;
 };
+
+struct node* queue[500];
+int front = -1;
+int rear = -1;
+
+
+void enqueue(struct node* data)
+{
+    if (front == -1)
+    {
+        front = rear = 0;
+        queue[rear] = data;
+    }
+    else
+    {
+        rear++;
+        queue[rear] = data;
+    }
+}
+
+struct node* dequeue()
+{
+    struct node* data = queue[front];
+    if (front == rear)
+    {
+        front = -1;
+        rear = -1;
+    }
+    else
+        front++;
+
+
+    return data;
+}
+
+int isEmpty()
+{
+    if (front == -1)
+        return 1;
+    else
+        return 0;
+}
 
 struct node* newNode(int item)
 {
-    struct node* temp
-        = (struct node*)malloc(sizeof(struct node));
-    temp->data = item;
-    temp->left = temp->right = NULL;
-    return temp;
+	struct node* temp = (struct node*)malloc(sizeof(struct node));
+	temp->key = item;
+	temp->left = temp->right = NULL;
+	return temp;
 }
 
 void inorder(struct node* root)
 {
-    if (root != NULL) {
-        inorder(root->left);
-        printf("%d ", root->data);
-        inorder(root->right);
-    }
+	if (root != NULL) {
+		inorder(root->left);
+		printf("%d ", root->key);
+		inorder(root->right);
+	}
 }
 
-struct node* insert(struct node* node, int data)
+struct node* insert(struct node* node, int key)
 {
-    if (node == NULL)
-        return newNode(data);
+	if (node == NULL)
+		return newNode(key);
+	if (key < node->key)
+		node->left = insert(node->left, key);
+	else if (key > node->key)
+		node->right = insert(node->right, key);
+	return node;
+}
 
-    if (data < node->data)
-        node->left = insert(node->left, data);
-    else if (data > node->data)
-        node->right = insert(node->right, data);
+void levelOrderTrav(struct node* root)
+{
+    enqueue(root);
+    enqueue(NULL);
+    while (!isEmpty())
+    {
+        struct node* temp = dequeue();
+        if (temp == NULL)
+        {
+            printf("\n");
+            if (!isEmpty())
+                enqueue(NULL);
+        }
+        else
+        {
+            printf("%d ", temp->key);
+            if (temp->left)
+                enqueue(temp->left);
 
-    return node;
+            if (temp->right)
+                enqueue(temp->right);
+        }
+    }
 }
 
 
 int main()
 {
-    /* Let us create following BST
-              50
-           /     \
-          30      70
-         /  \    /  \
-       20   40  60   80 */
     struct node* root = NULL;
-    root = insert(root, 50);
-    insert(root, 30);
-    insert(root, 20);
-    insert(root, 40);
-    insert(root, 70);
-    insert(root, 60);
-    insert(root, 80);
+    int n, item;
 
-    // Print inorder traversal of the BST
+    printf("Enter the number of elements to insert: ");
+    scanf("%d", &n);
+
+    printf("Enter %d elements to insert:\n", n);
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &item);
+        root = insert(root, item);
+    }
+
+    printf("Inorder traversal: ");
     inorder(root);
-
+	printf("\n");
+	levelOrderTrav(root);
     return 0;
 }
