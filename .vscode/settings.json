@@ -8,6 +8,7 @@
         "string_view": "c",
         "shared_mutex": "c",
         "functional": "c",
-        "regex": "c"
+        "regex": "c",
+        "ostream": "cpp"
     }
 }
