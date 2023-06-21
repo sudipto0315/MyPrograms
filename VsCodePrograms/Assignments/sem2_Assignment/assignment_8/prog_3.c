@@ -124,6 +124,7 @@ int main()
     inorder(root,inorderArray);
 	printf("\n");
     int k = 0;
+    printf("Enter the value of k: ");
     scanf("%d",&k);
     printf("The %d th largest element will be: ",k);
     printf("%d",inorderArray[n-k]);
