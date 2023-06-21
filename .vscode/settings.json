@@ -9,6 +9,9 @@
         "shared_mutex": "c",
         "functional": "c",
         "regex": "c",
-        "ostream": "cpp"
+        "ostream": "cpp",
+        "iostream": "cpp",
+        "limits": "cpp",
+        "type_traits": "cpp"
     }
 }
