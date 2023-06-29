@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 int z,n;
-int inorderArray[];
+int inorderArray[1];
 struct node {
 	int key;
 	struct node *left, *right;
