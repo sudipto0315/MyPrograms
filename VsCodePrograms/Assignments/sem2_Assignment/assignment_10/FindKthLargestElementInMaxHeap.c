@@ -33,6 +33,12 @@ void buildMaxHeap(int array[], int size)
     {
         heapify(array, size, i);
     }
+    for (int i = size -1; i >= 0; i--)
+    {
+        swap(&array[0],&array[i]);
+        heapify(array,i,0);
+    }
+    
 }
 
 void printArray(int array[], int size)
