@@ -2,27 +2,29 @@
 #include <vector>
 using namespace std;
 
-void inputElements(vector<vector<int>> &array,int m,int n)//used for inserting each elements
+void inputElements(vector<vector<int>> &array, int m, int n) // used for inserting each elements
 {
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            cout<<"Enter the "<<i<<", "<<j<<" element: ";
-            cin>>array[i][j];
+            cout << "Enter the " << i << ", " << j << " element: ";
+            cin >> array[i][j];
         }
     }
 }
 
-void printElements(vector<vector<int>> &array,int m,int n)//used for printing each elements
+void printElements(vector<vector<int>> &array)// used for printing each elements
 {
+    int m = array.size();
+    int n = array[0].size();
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            cout<<array[i][j]<<" ";
+            cout << array[i][j] << " ";
         }
-        cout<<endl;
+        cout << endl;
     }
 }
 
