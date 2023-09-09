@@ -4,7 +4,7 @@ int countOccurrence(const int* arr, int target, int left, int right) {
     int count = 0;
     for (int i = left; i <= right; ++i) {
         if (arr[i] == target) {
-            ++count;
+            count++;
         }
     }
     return count;
@@ -26,7 +26,11 @@ int findMajorityElement(const int* arr, int left, int right) {
     int leftCount = countOccurrence(arr, leftMajority, left, right);
     int rightCount = countOccurrence(arr, rightMajority, left, right);
 
-    return leftCount > rightCount ? leftMajority : rightMajority;
+if (leftCount > rightCount) {
+    return leftMajority;
+} else {
+    return rightMajority;
+}
 }
 
 int majorityElement(const int* arr, int size) {
