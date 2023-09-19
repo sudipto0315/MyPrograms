@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
 int findMissingElement(int arr[], int left, int right) {
@@ -25,10 +26,10 @@ int main() {
 
     int arr[n];
     cout << "Enter the elements: ";
-    for (int i = 0; i < n; ++i) {
+    for (int i = 0; i < n; i++) {
         cin >> arr[i];
     }
-
+    sort(arr,arr+n);
     int missingElement = findMissingElement(arr, 0, n - 1);
     cout << "Missing element in the array: " << missingElement << endl;
 

@@ -63,8 +63,8 @@ int main(int argc, char const *argv[])
     int secondMaxElement;
     int maxElement = findMax(arr, 0, n - 1);
     int minElement = findMin(arr, 0, n - 1);
-    findMaxAndSecondMax(arr, 0, n - 1, maxElement, secondMaxElement);
     cout << "Maximum element in the array: " << maxElement << endl;
+    findMaxAndSecondMax(arr, 0, n - 1, maxElement, secondMaxElement);
     cout << "Minimum element in the array: " << minElement << endl;
     cout << "Second maximum element in the array: " << secondMaxElement << endl;
 
