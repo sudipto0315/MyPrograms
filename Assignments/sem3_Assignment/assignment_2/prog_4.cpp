@@ -1,8 +1,9 @@
 //Merge sorting with 4 sub problems
-
-#include <stdio.h>
-#include <stdlib.h>
+#include <iostream>
 #include <limits.h>
+#include <time.h>
+#include <random>
+using namespace std;
 
 void merge(int arr[],int low,int high,int mid1,int mid2,int mid3){
     int n1=mid1-low+1;
@@ -69,23 +70,25 @@ void mergeSort(int arr[],int low,int high){
 }
 
 int main(){
-    int n;
-    printf("Please enter the number of elements you want to enter in the array\n");
-    scanf("%d",&n);
+    int n=0;
+    srand((unsigned)time(0));
+    cout<<"Enter the size of the array: ";
+    cin>>n;
     int arr[n];
-    printf("Please enter the elements of the array\n");
-    for(int i=0;i<n;i++){
-        scanf("%d",&arr[i]);
+    for (int i = 0; i < n; i++)
+    {
+        int rnd = rand() % 201 - 100; //this will generate both positive and negative numbers
+        arr[i] = rnd;
     }
-
     printf("The initial array was\n");
     for(int i=0;i<n;i++){
-        printf("%d ",arr[i]);
+        cout<<arr[i]<<" ";
     }
     mergeSort(arr,0,n-1);
     printf("\nThe final array formed after performing merge sort on 4 sub problems is \n");
     for(int i=0;i<n;i++){
-        printf("%d ",arr[i]);
+        cout<<arr[i]<< " ";
     }
+    cout<<endl;
     return 0;
 }
