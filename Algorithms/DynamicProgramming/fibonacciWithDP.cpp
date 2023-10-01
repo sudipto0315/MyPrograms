@@ -35,7 +35,7 @@ int topDownDP_InLinearSpace(int n, vector<int> &memo)
     return result;
 }
 
-int topDownDP_InConstantSpace(int n){
+int bottomUpDP_InConstantSpace(int n){
     if (n==0||n==1)
     {
         return n;
@@ -60,6 +60,6 @@ int main(int argc, char const *argv[])
     cout << "using brute-force:" << fibo(n)<<endl;
     vector<int> memo(n + 1, -1);
     cout << "Bottom up DP: " << topDownDP_InLinearSpace(n, memo)<<endl;
-    cout << "Bottom up DP with constant space complexity: " << topDownDP_InConstantSpace(n)<<endl;
+    cout << "Bottom up DP with constant space complexity: " << bottomUpDP_InConstantSpace(n)<<endl;
     return 0;
 }
