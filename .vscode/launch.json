@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "SudiptoRay_2201206",
+            "request": "launch",
+            "mainClass": "SudiptoRay_2201206",
+            "projectName": "MyPrograms_9e5b537c"
+        },
+        {
+            "type": "java",
             "name": "StudentInformationSystem",
             "request": "launch",
             "mainClass": "StudentInformationSystem",
