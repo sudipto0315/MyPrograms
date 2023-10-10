@@ -3,8 +3,8 @@
 using namespace std;
 
 typedef struct Node_t Node_t;
-typedef struct Node_t *Node;
-typedef Node List;
+typedef struct Node_t* Node;
+// typedef Node List;
 
 struct Node_t {
     int data;
