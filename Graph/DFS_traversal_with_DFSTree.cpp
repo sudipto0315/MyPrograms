@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <stack>
 using namespace std;
 
 void addEdge(vector<vector<int>> &adj, int u, int v)
@@ -24,34 +24,42 @@ void printGraph(const vector<vector<int>> &adj)
     }
 }
 
-void BFS(const vector<vector<int>> &adj, int s, int V)
+void DFS(const vector<vector<int>> &adj, int startingVertex, int V)
 {
-    // Mark all the vertices as not visited
     vector<bool> visited(V, false);
+    vector<int> parent(V, -1);
+    stack<int> stack;
 
-    // Create a queue for BFS using std::queue
-    queue<int> queue;
+    stack.push(startingVertex);
 
-    // Mark the current node as visited and enqueue it
-    visited[s] = true;
-    queue.push(s);
+    cout << "Following is Depth First Traversal (starting from vertex " << startingVertex << "): ";
 
-    while (!queue.empty())
+    while (!stack.empty())
     {
-        // Dequeue a vertex from the queue and print it
-        s = queue.front();
-        cout << s << " ";
-        queue.pop();
-
-        // Get all adjacent vertices of the dequeued vertex s.
-        // If an adjacent has not been visited, then mark it visited and enqueue it
-        for (auto adjacent : adj[s])
+        int v = stack.top();
+        stack.pop();
+        if (!visited[v])
         {
-            if (!visited[adjacent])
+            visited[v] = true;
+            cout << v << " ";
+            for (int neighbor : adj[v])
+
             {
-                visited[adjacent] = true;
-                queue.push(adjacent);
+                if (!visited[neighbor])
+                {
+                    parent[neighbor] = v;
+                    stack.push(neighbor);
+                }
             }
+        }
+    }
+    cout<<"\n"<<endl;
+    cout <<"DFS Tree:" << endl;
+    for (int i = 0; i < V; ++i)
+    {
+        if (parent[i] != -1)
+        {
+            cout << parent[i] << " is the parent of: " << i << endl;
         }
     }
 }
@@ -78,13 +86,12 @@ int main(int argc, char const *argv[])
 
     cout << "Graph representation:" << endl;
     printGraph(adj);
-
+    cout<<endl;
     int startingVertex;
-    cout << "Enter the vertex from where to start the BFS Traversal: ";
+    cout << "Enter the vertex from where to start the DFS Traversal: ";
     cin >> startingVertex;
-    cout << "Following is Breadth First Traversal (starting from vertex " << startingVertex << ") \n";
+    cout<<endl;
 
-    BFS(adj, startingVertex, V);
-
+    DFS(adj, startingVertex, V);
     return 0;
 }
