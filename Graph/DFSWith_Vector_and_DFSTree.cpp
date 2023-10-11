@@ -9,57 +9,51 @@ void addEdge(vector<vector<int>> &adj, int u, int v)
     adj[v].push_back(u); // if you want to create directed graph, then comment out this line
 }
 
-// Function to print the graph
-void printGraph(const vector<vector<int>> &adj)
+void DFS(const vector<vector<int>> &adj)
 {
     int V = adj.size();
+    vector<bool> visited(V, false);
+
+    cout << "Depth First Traversal: " << endl;
+
     for (int v = 0; v < V; ++v)
     {
-        cout << "Adjacency list of vertex " << v << ": ";
-        for (int neighbor : adj[v])
-        {
-            cout << neighbor << " ";
-        }
-        cout << endl;
-    }
-}
-
-void DFS(const vector<vector<int>> &adj, int startingVertex, int V)
-{
-    vector<bool> visited(V, false);
-    vector<int> parent(V, -1);
-    stack<int> stack;
-
-    stack.push(startingVertex);
-
-    cout << "Following is Depth First Traversal (starting from vertex " << startingVertex << "): ";
-
-    while (!stack.empty())
-    {
-        int v = stack.top();
-        stack.pop();
         if (!visited[v])
         {
-            visited[v] = true;
-            cout << v << " ";
-            for (int neighbor : adj[v])
+            cout << "Connected Component: ";
+            vector<int> parent(V, -1);
+            stack<int> stack;
+            stack.push(v);
 
+            while (!stack.empty())
             {
-                if (!visited[neighbor])
+                v = stack.top();
+                stack.pop();
+                if (!visited[v])
                 {
-                    parent[neighbor] = v;
-                    stack.push(neighbor);
+                    visited[v] = true;
+                    cout << v << " ";
+                    for (int neighbor : adj[v])
+                    {
+                        if (!visited[neighbor])
+                        {
+                            parent[neighbor] = v;
+                            stack.push(neighbor);
+                        }
+                    }
                 }
             }
-        }
-    }
-    cout<<"\n"<<endl;
-    cout <<"DFS Tree:" << endl;
-    for (int i = 0; i < V; ++i)
-    {
-        if (parent[i] != -1)
-        {
-            cout << parent[i] << " is the parent of: " << i << endl;
+
+            cout << endl;
+
+            cout << "DFS Tree:" << endl;
+            for (int i = 0; i < V; ++i)
+            {
+                if (parent[i] != -1)
+                {
+                    cout << parent[i] << " is the parent of: " << i << endl;
+                }
+            }
         }
     }
 }
@@ -85,13 +79,19 @@ int main(int argc, char const *argv[])
     }
 
     cout << "Graph representation:" << endl;
-    printGraph(adj);
-    cout<<endl;
-    int startingVertex;
-    cout << "Enter the vertex from where to start the DFS Traversal: ";
-    cin >> startingVertex;
-    cout<<endl;
+    // For printing the graph
+    for (int i = 0; i < V; ++i)
+    {
+        cout << "Adjacency list of vertex " << i << ": ";
+        for (int neighbor : adj[i])
+        {
+            cout << neighbor << " ";
+        }
+        cout << endl;
+    }
 
-    DFS(adj, startingVertex, V);
+    cout << "DFS Traversal for connected and disconnected graphs:" << endl;
+    DFS(adj);
+
     return 0;
 }
