@@ -19,7 +19,7 @@ int main()
             adjMatrix[i][j] = 0;
         }
     }
-
+    cout << "Enter the edges (vertex pairs):" << endl;
     for (int i = 0; i < m; ++i)
     {
         int u, v;
