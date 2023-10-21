@@ -3,7 +3,8 @@
 #include <queue>
 using namespace std;
 
-void addEdge(vector<vector<int>> &adj, int u, int v) {
+void addEdge(vector<vector<int>> &adj, int u, int v)
+{
     adj[u].push_back(v);
     adj[v].push_back(u);
 }
@@ -23,20 +24,33 @@ void printGraph(const vector<vector<int>> &adj)
     }
 }
 
-bool isBipartiteUtil(vector<vector<int>>& adjList, int src, vector<int> &colorArr, int V) {
-    colorArr[src] = 1;
-    queue<int> q;
-    q.push(src);
-    while (!q.empty()) {
-        int u = q.front();
-        q.pop();
+bool isBipartite(vector<vector<int>> &adj)
+{
+    int n = adj.size();
+    vector<int> color(n); // 0: uncolored; 1: color A; -1: color B
 
-        for (int v : adjList[u]) {
-            if (colorArr[v] == -1) {
-                colorArr[v] = 1 - colorArr[u];
-                q.push(v);
-            } else if (colorArr[v] == colorArr[u]) {
-                return false;
+    queue<int> q; // queue, resusable for BFS
+
+    for (int i = 0; i < n; i++)
+    {
+        if (color[i])
+            continue; // skip already colored nodes
+
+        // BFS with seed node i to color neighbors with opposite color
+        color[i] = 1; // color seed i to be A (doesn't matter A or B)
+        for (q.push(i); !q.empty(); q.pop())
+        {
+            int cur = q.front();
+            for (int neighbor : adj[cur])
+            {
+                if (!color[neighbor]) // if uncolored, color with opposite color
+                {
+                    color[neighbor] = -color[cur];
+                    q.push(neighbor);
+                }
+
+                else if (color[neighbor] == color[cur])
+                    return false; // if already colored with same color, can't be bipartite!
             }
         }
     }
@@ -44,21 +58,8 @@ bool isBipartiteUtil(vector<vector<int>>& adjList, int src, vector<int> &colorAr
     return true;
 }
 
-bool isBipartite(vector<vector<int>>& adjList, int V) {
-    vector<int> colorArr(V, -1);
-
-    for (int i = 0; i < V; i++) {
-        if (colorArr[i] == -1) {
-            if (isBipartiteUtil(adjList, i, colorArr, V)==false) {
-                return false;
-            }
-        }
-    }
-
-    return true;
-}
-
-int main(int argc, char const *argv[]) {
+int main(int argc, char const *argv[])
+{
     int V;
     cout << "Enter the number of vertices: ";
     cin >> V;
@@ -70,7 +71,8 @@ int main(int argc, char const *argv[]) {
     cin >> E;
 
     cout << "Enter the edges (vertex pairs):" << endl;
-    for (int i = 0; i < E; ++i) {
+    for (int i = 0; i < E; ++i)
+    {
         int u, v;
         cin >> u >> v;
         addEdge(adj, u, v);
@@ -79,10 +81,13 @@ int main(int argc, char const *argv[]) {
     cout << "Graph representation:" << endl;
     printGraph(adj);
 
-    bool result = isBipartite(adj, V);
-    if (result) {
+    bool result = isBipartite(adj);
+    if (result)
+    {
         cout << "Yes, the graph is Bipartite." << endl;
-    } else {
+    }
+    else
+    {
         cout << "No, the graph is not Bipartite." << endl;
     }
 
