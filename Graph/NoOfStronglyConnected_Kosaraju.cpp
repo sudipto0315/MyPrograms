@@ -19,6 +19,7 @@ void dfs(int node, vector<int> &visited, const vector<vector<int>> &adj, stack<i
 
 void kosarajuUtil(int node, vector<int> &visited, const vector<vector<int>> &adjT, stack<int> &stack) {
     visited[node] = 1;
+    cout << node << " ";
     for (auto it : adjT[node]) {
         if (!visited[it]) {
             kosarajuUtil(it, visited, adjT, stack);
@@ -52,6 +53,7 @@ int kosaraju(int V, vector<vector<int>> &adj) {
         if (!visited[node]) {
             kosarajuUtil(node, visited, adjT, stack);
             scc++;
+            cout<<endl;
         }
     }
     return scc;
