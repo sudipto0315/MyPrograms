@@ -1,62 +1,96 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
-
+#include <queue>
 using namespace std;
 
-void DFS(const vector<vector<int>> &graph, int node, vector<int> &shortest, vector<bool> &visited, int current, int &diameter)
+void addEdge(vector<vector<int>> &adj, int u, int v)
 {
-    visited[node] = true;
-    shortest[node] = current;
+    adj[u].push_back(v);
+    // adj[v].push_back(u); // if you want to create directed graph, then comment out this line
+}
 
-    for (int neighbor : graph[node])
+// Function to print the graph
+void printGraph(const vector<vector<int>> &adj)
+{
+    int V = adj.size();
+    for (int v = 0; v < V; ++v)
     {
-        if (!visited[neighbor])
+        cout << "Adjacency list of vertex " << v << ": ";
+        for (int neighbor : adj[v])
         {
-            DFS(graph, neighbor, shortest, visited, current + 1, diameter);
+            cout << neighbor << " ";
+        }
+        cout << endl;
+    }
+}
+
+vector<int> shortestPath(vector<vector<int>> &adj, int startVertex, int V)
+{
+    vector<bool> vis(V, false);
+    vector<int> level(V, -1);
+
+    queue<int> q;
+    q.push(startVertex);
+    level[startVertex] = 0;
+    vis[startVertex] = true;
+
+    while (!q.empty())
+    {
+        int curr = q.front();
+        q.pop();
+        for (int neighbor : adj[curr])
+        {
+            if (!vis[neighbor])
+            {
+                q.push(neighbor);
+                vis[neighbor] = true;
+                level[neighbor] = level[curr] + 1;
+            }
         }
     }
-
-    diameter = max(diameter, shortest[node]);
+    return level;
 }
 
-int findDiameter(const vector<vector<int>> &graph)
+int diameter(vector<vector<int>> &adj, int V)
 {
-    int n = graph.size();
-    int diameter = 0;
-
-    for (int i = 0; i < n; i++)
+    int maxDiameter = 0;
+    for (int i = 0; i < V; i++)
     {
-        vector<bool> visited(n, false);
-        vector<int> shortest(n, 0);
-        DFS(graph, i, shortest, visited, 0, diameter);
+        vector<int> distances = shortestPath(adj, i, V);
+        for (int j = 0; j < V; j++)
+        {
+            if (distances[j] > maxDiameter)
+            {
+                maxDiameter = distances[j];
+            }
+        }
     }
-
-    return diameter;
+    return maxDiameter;
 }
 
-int main()
+int main(int argc, char const *argv[])
 {
-    int n, m;
-    cout << "Enter the number of nodes: ";
-    cin >> n;
+    int V;
+    cout << "Enter the number of vertices: ";
+    cin >> V;
+
+    vector<vector<int>> adj(V);
+
+    int E;
     cout << "Enter the number of edges: ";
-    cin >> m;
+    cin >> E;
 
-    vector<vector<int>> graph(n);
-
-    cout << "Enter the edges (format: u v):" << endl;
-    for (int i = 0; i < m; i++)
+    cout << "Enter the edges (vertex pairs):" << endl;
+    for (int i = 0; i < E; ++i)
     {
         int u, v;
         cin >> u >> v;
-        graph[u].push_back(v);
-        graph[v].push_back(u);
+        addEdge(adj, u, v);
     }
 
-    int diameter = findDiameter(graph);
+    cout << "Graph representation:" << endl;
+    printGraph(adj);
 
-    cout << "The diameter of the graph is: " << diameter << endl;
-
+    cout << "Diameter is :- " << diameter(adj, V) << endl;
     return 0;
 }
