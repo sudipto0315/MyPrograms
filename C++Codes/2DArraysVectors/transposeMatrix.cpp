@@ -30,19 +30,20 @@ void printElements(vector<vector<int>> &array) // used for printing each element
     }
 }
 
-void transposeMatrix(vector<vector<int>> &array, vector<vector<int>> &transpose)
+vector<vector<int>> transposeMatrix(vector<vector<int>> &array)
 {
     int m = array.size();
     int n = array[0].size();
-        transpose.resize(n, vector<int>(m, 0));
+    vector<vector<int> > transpose(n, vector<int>(m,0));
 
     for (int i = 0; i < m; i++)
     {
         for (int j = 0; j < n; j++)
         {
-            transpose[i][j] = array[j][i];
+            transpose[j][i] = array[i][j];
         }
     }
+    return transpose;
 }
 
 int main()
@@ -61,8 +62,7 @@ int main()
     cout << "The entered Matrix is :" << endl;
     printElements(array);
 
-    vector<vector<int>> transpose(m, vector<int>(n, 0));
-    transposeMatrix(array,transpose);
+    vector<vector<int>> transpose = transposeMatrix(array);
     cout << "Resultant Matrix:" << endl;
     printElements(transpose);
 
