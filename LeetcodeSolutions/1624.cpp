@@ -15,13 +15,12 @@ public:
             }
         }
         return length;
-        cout <<"udhnvidnvi"<<hash.end()<<endl;
     }
 };
 int main(){
     Solution s;
     cout<<s.maxLengthBetweenEqualCharacters("aa")<<endl;
-    // cout<<s.maxLengthBetweenEqualCharacters("abca")<<endl;
-    // cout<<s.maxLengthBetweenEqualCharacters("cbzxy")<<endl;
+    cout<<s.maxLengthBetweenEqualCharacters("abca")<<endl;
+    cout<<s.maxLengthBetweenEqualCharacters("cbzxy")<<endl;
     return 0;
 }
